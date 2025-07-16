@@ -105,6 +105,20 @@ async function setFilePublic(file_name, service_id) {
     throw err;
   }
 }
+
+async function setFilePrivate(file_name, service_id) {
+  try {
+    const [result] = await pool.query(
+      "UPDATE file_system SET is_public = 0 WHERE file_name = ? AND service_id = ?",
+      [file_name, service_id]
+    );
+
+    return result.affectedRows > 0;
+  } catch (err) {
+    console.error("Database error in setFilePublic:", err);
+    throw err;
+  }
+}
 module.exports = {
   getServiceByName,
   getServiceId,
@@ -112,4 +126,5 @@ module.exports = {
   getFileByName,
   deleteFileMetadata,
   setFilePublic,
+  setFilePrivate,
 };
