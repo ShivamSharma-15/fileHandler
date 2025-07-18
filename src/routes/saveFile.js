@@ -4,11 +4,13 @@ const upload = require("../middleware/multer");
 const fileSaveController = require("../controller/fileSaveController");
 const { fileDeleteController } = require("../controller/fileDeleteController");
 const toPublicController = require("../controller/toPublicController");
-const toPravateController = require("../controller/toPrivateController");
+const toPrivateController = require("../controller/toPrivateController");
+const awsController = require("../controller/awsController");
 
 router.post("/save-file", upload.single("file"), fileSaveController);
 router.post("/delete-file", fileDeleteController);
 router.post("/to-public", toPublicController);
-router.post("/to-private", toPravateController);
+router.post("/to-private", toPrivateController);
+router.post("/to-aws", upload.single("file"), awsController);
 
 module.exports = router;
